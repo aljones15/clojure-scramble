@@ -9,7 +9,7 @@
 
 (defn index [] "try posting to /scramble")
 
-(defn scramble-unwrap [json] (let [words (get json "words")] (scramble? words)))
+(defn scramble-unwrap [json] (let [words (get json "words")] {:scramble (scramble? words)}))
 (defn body-unwrap [ctx] (let [body (get-in ctx [:request :json-params])] body))
 (defn valid-words? [json] (let [words (get json "words")] (or (nil? words) (< (count words) 2))))
 
