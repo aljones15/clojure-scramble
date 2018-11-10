@@ -1,6 +1,6 @@
 (ns liberator-tutorial.scramble-test
   (:require [clojure.test :refer :all]
-            [liberator-tutorial.scramble :refer [scramble?]]))
+            [liberator-tutorial.scramble :refer [scramble? word-2-count]]))
 
 (deftest scramble-test
   (testing "should return true for an anagram"
@@ -17,5 +17,11 @@
   )
   (testing "should return false if there is only one item in the list"
     (is (= (scramble? ["one"]) false))
+  )
+)
+
+(deftest word-2-count-test
+  (testing "should return a map"
+    (is (= (word-2-count "aabcc") {\a 2 \b 1 \c 2}))
   )
 )
