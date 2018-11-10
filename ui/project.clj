@@ -101,6 +101,7 @@
                                                           :source-map-timestamp true}}]}
 
                           :plugins      [[lein-cljsbuild "1.1.7"]
+                                         [lein-figwheel "0.5.17"]
                                          [lein-doo "0.1.10"]
                                          [com.jakemccrary/lein-test-refresh "0.21.1"]]
 
