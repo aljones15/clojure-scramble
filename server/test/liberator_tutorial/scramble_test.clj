@@ -7,7 +7,7 @@
     (is (= (scramble? ["cat" "act"]) true))
   )
   (testing "should return true for rekqodlw world"
-    (is (= (scramble? ["rekqodlw” ”world"]) true))
+    (is (= (scramble? ["rekqodlw" "world"]) true))
   )
   (testing "should return true for cedewaraaossoqqyt codewars"
     (is (= (scramble? ["cedewaraaossoqqyt" "codewars"]) true))
