@@ -6,6 +6,15 @@
   (testing "should return true for an anagram"
     (is (= (scramble? ["cat" "act"]) true))
   )
+  (testing "should return true for rekqodlw world"
+    (is (= (scramble? ["rekqodlw” ”world"]) true))
+  )
+  (testing "should return true for cedewaraaossoqqyt codewars"
+    (is (= (scramble? ["cedewaraaossoqqyt" "codewars"]) true))
+  )
+  (testing "should return false for katas steak"
+    (is (= (scramble? ["katas” “steak"]) false))
+  )
   (testing "should return false if same length but missing letters"
     (is (= (scramble? ["cat" "bat"]) false))
   )
@@ -33,10 +42,19 @@
   (testing "should return all ones bat"
     (is (= (word-2-count "bat" {}) {\b 1 \a 1 \t 1}))
   )
+  (testing "should return all ones rekqodlw"
+    (is (= (word-2-count "rekqodlw" {}) {\r 1 \e 1 \k 1 \q 1 \o 1 \d 1 \l 1 \w 1}))
+  )
+  (testing "should return all ones world"
+    (is (= (word-2-count "world" {}) {\w 1 \o 1 \r 1 \l 1 \d 1}))
+  )
 )
 
 (deftest check-scramble-test 
-  (testing "should return false"
+  (testing "cat bat should return false"
     (is (= (check-scramble "cat" "bat") false))
+  )
+  (testing "rekqodlw worldshould return true"
+    (is (= (check-scramble "rekqodlw" "world") true))
   )
 )

@@ -9,7 +9,7 @@
 
 (defsc ScrambleForm [this {:keys [ui/word-one ui/word-two]}]
   {:query [:ui/word-one :ui/word-two] 
-   :initial-state {:ui/word-one "" :ui/word-two ""}}
+   :initial-state (fn [{:keys [word-one word-two]}] {:ui/word-one "" :ui/word-two ""})}
   (dom/form :#form-scramble
     (dom/input {:id "input-word-one" :placeholder "word one" :type "text" :value word-one})
     (dom/input {:id "input-word-two" :placeholder "word two" :type "text" :value word-two})
