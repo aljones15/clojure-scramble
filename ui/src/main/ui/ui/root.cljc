@@ -11,12 +11,12 @@
 )
 
 ;; The main UI of your application
-(defsc Root [this {:keys [ui]}]
-  {:query [{:ui (prim/get-query ScrambleForm)}]
+(defsc Root [this {:keys [word]}]
+  {:query [{:word (prim/get-query ScrambleForm)}]
    :initial-state (fn [params] 
-     {:ui (prim/get-initial-state ScrambleForm{:word-one "" :word-two ""})})
+     {:word (prim/get-initial-state ScrambleForm{:one "" :two ""})})
   }
   (dom/div :.flex-container
-    (ui-scramble-form ui)
+    (ui-scramble-form word)
   )
 )

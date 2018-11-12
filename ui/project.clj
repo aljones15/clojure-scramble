@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.339"]
                  [fulcrologic/fulcro "2.6.0-RC9"]
-
+                 [fulcrologic/fulcro-incubator "0.0.2"]
                  ; Only required if you use server
                  [http-kit "2.3.0"]
                  [ring/ring-core "1.6.3" :exclusions [commons-codec]]

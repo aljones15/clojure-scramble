@@ -10,6 +10,3 @@
   (make-fulcro-server
     :parser-injections #{:config}
     :config-path config))
-
-
-
