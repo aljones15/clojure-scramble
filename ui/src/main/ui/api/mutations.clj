@@ -4,3 +4,4 @@
     [fulcro.server :refer [defmutation]]))
 
 ;; Place your server mutations here
+

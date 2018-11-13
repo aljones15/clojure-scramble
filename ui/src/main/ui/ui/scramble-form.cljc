@@ -6,33 +6,36 @@
     [ui.api.mutations :as api]
     [fulcro.client.primitives :as prim :refer [defsc]]
     [fulcro.i18n :as i18n :refer [tr trf]]
-    [fulcro.client.mutations :refer [defmutation]]
   )
 )
+
 (defn extract-value [event]
   "get the value from a react synthetic event"
   (aget event "target" "value")
 )
 
-(defmutation word-update [{:keys [word k]}]
-  (action [{:keys [state]}]
-    (swap! state update-in [:word] assoc k word)
-  )
-)
 
 (defn handle-input [el k]
   "handles in the input from the words"
   (fn [e]
     (let [word (extract-value e)]
-      (prim/transact! el `[(word-update {:word ~word :k ~k})])
+      (prim/transact! el `[(api/word-update {:word ~word :k ~k})])
     )
+  )
+)
+
+(defn handle-submit [el one two]
+  (fn [e]
+    (println "handle submit" "one" one  "two" two)
+    (.preventDefault e)
+    (prim/transact! el `[(api/scramble? {:one ~one :two ~two})])
   )
 )
 
 (defsc ScrambleForm [this {:keys [one two]}]
   {:query [:one :two] 
    :initial-state (fn [{:keys [one two]}] {:one one :two two})}
-  (dom/form :#form-scramble {:onSubmit #((.-preventDefault %)(println one two)) }
+  (dom/form :#form-scramble {:onSubmit (handle-submit this one two) }
     (dom/input {
        :id "input-word-one"
        :placeholder "word one"
@@ -49,10 +52,7 @@
     )
     (dom/button {
       :form "form-scramble"
-      :type "submit"
-      :formMethod "post"
-      :onClick #((.-preventDefault %) (println "one is " one))
-      :formAction ::api-endpoint} 
+      :type "submit" }
       "Scramble"
     )
   )
