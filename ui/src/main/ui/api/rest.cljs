@@ -58,6 +58,7 @@
       (finally (.dispose xhr-io))))
   net/FulcroNetwork
   (send [this edn ok error]
+    (println "network send")
     (let [xhrio       (make-xhrio)
           ; STEP 1: Convert the request(s) from query notation to REST...
           ; some logic to morph the incoming request into REST (assume you'd factor this out to handle numerous kinds)
