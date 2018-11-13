@@ -13,7 +13,7 @@
     (.format formatter (clj->js format-options))))
 
 (defonce app (atom (fc/new-fulcro-client
-                     :network {:remote (net/make-fulcro-network "/scramble" :global-error-callback (constantly nil))
+                     :networking {:remote (net/make-fulcro-network "/scramble" :global-error-callback (constantly nil))
                                :rest   (rest/make-rest-network)}
                      :reconciler-options {:shared    {::i18n/message-formatter message-format}
                                           :render-mode :keyframe ; Good for beginners. Remove to optimize UI refresh

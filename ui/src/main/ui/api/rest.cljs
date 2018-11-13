@@ -58,16 +58,15 @@
       (finally (.dispose xhr-io))))
   net/FulcroNetwork
   (send [this edn ok error]
-    (println "network send")
     (let [xhrio       (make-xhrio)
           ; STEP 1: Convert the request(s) from query notation to REST...
           ; some logic to morph the incoming request into REST (assume you'd factor this out to handle numerous kinds)
           request-ast (-> (prim/query->ast edn) :children first)
           uri         (str "/" (name (:key request-ast)))   ; in this case, posts
-          url         (str "http://jsonplaceholder.typicode.com" uri)]
+          url         (str "http://localhost:4139" uri)]
       (js/console.log :REQUEST request-ast :URI uri)
       ; STEP 2: Send the request
-      (.send xhrio url "GET")
+      (.send xhrio url "POST" {"words" ["cat" "bat"]})
       ; STEP 3 (see response-ok above)
       (events/listen xhrio (.-SUCCESS EventType) #(net/response-ok this xhrio ok))
       (events/listen xhrio (.-ERROR EventType) #(net/response-error this xhrio error))))

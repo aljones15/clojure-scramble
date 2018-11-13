@@ -28,7 +28,7 @@
   (fn [e]
     (println "handle submit" "one" one  "two" two)
     (.preventDefault e)
-    (prim/transact! el `[(api/scramble? {:one ~one :two ~two})])
+    (prim/transact! el `[(api/scramble {:one ~one :two ~two})])
   )
 )
 

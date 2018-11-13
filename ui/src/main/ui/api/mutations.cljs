@@ -3,8 +3,6 @@
     [fulcro.client.mutations :refer [defmutation]]
     [fulcro.client.logging :as log]
     [fulcro.client.data-fetch :as df]
-    [ui.client :as client]
-    [ui.ui.root :as root]
   )
 )
 
@@ -15,11 +13,19 @@
     (swap! state update-in [:word] assoc k word)
   )
 )
-
+(comment
 (defmutation scramble? [{:keys [one two]}]
   (action [{:keys [state]}]
       (swap! state assoc :scramble true)
-      (df/load client/app :scramble root {:remote :rest} {:words [one two]})
+      (df/load state :scramble {:remote :rest})
   )
   (rest [env] true)
 )
+)
+(defmutation scramble [{:keys [one two]}]
+  (action [env]
+    (println "scramble action") 
+  )
+  (rest [env] true)
+)
+
