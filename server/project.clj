@@ -11,4 +11,5 @@
     [compojure "1.6.0"]
     [ring/ring-core "1.6.3"]
     [ring/ring-json "0.4.0"]
+    [ring-cors "0.1.12"]
   ])

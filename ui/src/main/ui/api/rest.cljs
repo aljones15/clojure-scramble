@@ -4,6 +4,7 @@
             [fulcro.client.network :as net]
             [cognitect.transit :as ct]
             [goog.events :as events]
+            [goog.structs :refer [Map]]
             [fulcro.transit :as t]
             [clojure.string :as str]
             [clojure.set :as set]
@@ -11,6 +12,11 @@
   (:import [goog.net XhrIo EventType]))
 
 (defn make-xhrio [] (XhrIo.))
+
+(defn make-headers [sections]
+  "make-headers takes a map and reduces the key values into a google map"
+  ( let [headers (Map)]  headers )
+)
 
 (defrecord Network [url request-transform global-error-callback complete-app transit-handlers]
   net/NetworkBehavior
@@ -66,7 +72,7 @@
           url         (str "http://localhost:4139" uri)]
       (js/console.log :REQUEST request-ast :URI uri)
       ; STEP 2: Send the request
-      (.send xhrio url "POST" {"words" ["cat" "bat"]})
+      (.send xhrio url "POST" {"words" ["cat" "bat"]} {"Content-Type" "application/json"})
       ; STEP 3 (see response-ok above)
       (events/listen xhrio (.-SUCCESS EventType) #(net/response-ok this xhrio ok))
       (events/listen xhrio (.-ERROR EventType) #(net/response-error this xhrio error))))
