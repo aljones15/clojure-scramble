@@ -13,19 +13,10 @@
     (swap! state update-in [:word] assoc k word)
   )
 )
-(comment
-(defmutation scramble? [{:keys [one two]}]
-  (action [{:keys [state]}]
-      (swap! state assoc :scramble true)
-      (df/load state :scramble {:remote :rest})
-  )
-  (rest [env] true)
-)
-)
-(defmutation scramble [{:keys [one two]}]
-  (action [env]
-    (println "scramble action") 
-  )
-  (rest [env] true)
-)
 
+(defmutation scramble [{:keys [words]}]
+  (action [env]
+    (println "scramble action ") 
+  )
+  (rest [env] true)
+)

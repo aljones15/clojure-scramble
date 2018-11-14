@@ -4,7 +4,6 @@
             [fulcro.client.network :as net]
             [cognitect.transit :as ct]
             [goog.events :as events]
-            [goog.structs :refer [Map]]
             [fulcro.transit :as t]
             [clojure.string :as str]
             [clojure.set :as set]
@@ -12,11 +11,6 @@
   (:import [goog.net XhrIo EventType]))
 
 (defn make-xhrio [] (XhrIo.))
-
-(defn make-headers [sections]
-  "make-headers takes a map and reduces the key values into a google map"
-  ( let [headers (Map)]  headers )
-)
 
 (defrecord Network [url request-transform global-error-callback complete-app transit-handlers]
   net/NetworkBehavior
@@ -31,17 +25,11 @@
             response      (.getResponseJson xhr-io)
             edn           (js->clj response) ; convert it to clojure
             ; Rename the keys from strings to the desired UI keywords
-            posts         (mapv #(set/rename-keys % {"id"     :db/id
-                                                     "title"  :post/title
-                                                     "userId" :post/user-id
-                                                     "body"   :post/body})
-                            edn)
+            scramble         (set/rename-keys edn {"scramble"   :scramble})
             ; IMPORTANT: structure of the final data we send to the callback must match the nesting structure of the query
-            ; [{:posts [...]}] or it won't merge correctly:
-            fixed-response      {:posts posts}]
-        (js/console.log :converted-response fixed-response)
+           ]
         ; STEP 4; Send the fixed up response back to the client DB
-        (when (and response valid-data-callback) (valid-data-callback fixed-response)))
+        (when (and response valid-data-callback) (valid-data-callback scramble)))
       (finally (.dispose xhr-io))))
   (response-error [this xhr-io error-callback]
     ;; Implies:  request was sent.
@@ -64,6 +52,7 @@
       (finally (.dispose xhr-io))))
   net/FulcroNetwork
   (send [this edn ok error]
+    (def post-data (last(first edn)))
     (let [xhrio       (make-xhrio)
           ; STEP 1: Convert the request(s) from query notation to REST...
           ; some logic to morph the incoming request into REST (assume you'd factor this out to handle numerous kinds)
@@ -72,7 +61,10 @@
           url         (str "http://localhost:4139" uri)]
       (js/console.log :REQUEST request-ast :URI uri)
       ; STEP 2: Send the request
-      (.send xhrio url "POST" {"words" ["cat" "bat"]} {"Content-Type" "application/json"})
+      (def post-headers {"Content-Type" "application/json"})
+      (defn post-json [clj-map] (.stringify js/JSON (clj->js clj-map)))
+      (def post-body (post-json post-data))
+      (.send xhrio url "POST"  post-body post-headers)
       ; STEP 3 (see response-ok above)
       (events/listen xhrio (.-SUCCESS EventType) #(net/response-ok this xhrio ok))
       (events/listen xhrio (.-ERROR EventType) #(net/response-error this xhrio error))))
