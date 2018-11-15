@@ -36,11 +36,14 @@
   :margin "0.5rem"
 }])
 
-(def btn-rules [:button [:&.flex-item{
+(def btn-rules [:button [:&.flex-item {
   :background-color "#47ec47"
+  :height "2rem"
+  :border-radius "5%"
 }]])
 
-(defsc ScrambleForm [this {:keys [one two]} computed {:keys [flex-item]}]
+
+(defsc ScrambleForm [this {:keys [one two]} computed {:keys [flex-item invalid-message]}]
   {:query [:one :two] 
    :initial-state (fn [{:keys [one two]}] {:one one :two two})
    :css [flex-item-rules btn-rules]

@@ -20,7 +20,7 @@
 
 
 ;; The main UI of your application
-(defsc Root [this {:keys [word]} computed {:keys [flex-container]} ]
+(defsc Root [this {:keys [word scramble]} computed {:keys [flex-container]} ]
   {:query [{:word (prim/get-query ScrambleForm)} :scramble]
    :initial-state (fn [params] 
      {:word (prim/get-initial-state ScrambleForm{:one "" :two ""}) :scramble false})
@@ -29,5 +29,6 @@
   (dom/div {:className flex-container}
     (injection/style-element {:component this})
     (ui-scramble-form word)
+    (dom/h3 nil (str "Scramble is " scramble))
   )
 )
