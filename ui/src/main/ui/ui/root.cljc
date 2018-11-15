@@ -7,16 +7,27 @@
     [fulcro.client.primitives :as prim :refer [defsc]]
     [fulcro.i18n :as i18n :refer [tr trf]]
     [ui.ui.scramble-form :refer [ui-scramble-form ScrambleForm]]
+    [fulcro-css.css-injection :as injection]
   )
 )
 
+(def flex-rules [:.flex-container :#form-scramble {
+  :display "flex"
+  :flex-direction "column"
+  :justify-content "center"
+  :align-items "center"
+}])
+
+
 ;; The main UI of your application
-(defsc Root [this {:keys [word]}]
+(defsc Root [this {:keys [word]} computed {:keys [flex-container]} ]
   {:query [{:word (prim/get-query ScrambleForm)} :scramble]
    :initial-state (fn [params] 
      {:word (prim/get-initial-state ScrambleForm{:one "" :two ""}) :scramble false})
+   :css [flex-rules]
   }
-  (dom/div :.flex-container
+  (dom/div {:className flex-container}
+    (injection/style-element {:component this})
     (ui-scramble-form word)
   )
 )

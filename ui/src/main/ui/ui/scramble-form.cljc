@@ -32,26 +32,43 @@
   )
 )
 
-(defsc ScrambleForm [this {:keys [one two]}]
+(def flex-item-rules [:.flex-item {
+  :margin "0.5rem"
+}])
+
+(def btn-rules [:button [:&.flex-item{
+  :background-color "#47ec47"
+}]])
+
+(defsc ScrambleForm [this {:keys [one two]} computed {:keys [flex-item]}]
   {:query [:one :two] 
-   :initial-state (fn [{:keys [one two]}] {:one one :two two})}
+   :initial-state (fn [{:keys [one two]}] {:one one :two two})
+   :css [flex-item-rules btn-rules]
+  }
   (dom/form :#form-scramble {:onSubmit (handle-submit this one two) }
     (dom/input {
        :id "input-word-one"
+       :className flex-item
        :placeholder "word one"
        :type "text"
        :value one
+       :required true
+       :pattern "[a-z]+"
        :onChange (handle-input this :one)}
     )
     (dom/input {
       :id "input-word-two"
+      :className flex-item
       :placeholder "word two"
       :type "text"
       :value two
+      :required true
+      :pattern "[a-z]+"
       :onChange (handle-input this :two)}
     )
     (dom/button {
       :form "form-scramble"
+      :className flex-item
       :type "submit" }
       "Scramble"
     )
