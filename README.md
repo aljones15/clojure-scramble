@@ -8,3 +8,22 @@ construct a basic scramble function
 ```
 bash init.sh
 ```
+
+the bas script should work
+if it does not
+
+```
+chmod +x init.sh
+cd ui
+chmod +x start.sh
+```
+
+## Stack
+### API
+-liberator
+### Front End
+- fulcro
+
+I did not use Fulcro's built in server just went with liberator
+
+tests are in server (did not test ui)
