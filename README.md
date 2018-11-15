@@ -11,7 +11,7 @@ bash install.sh
 - the front end can be on any port
 
 ```
-bash init.sh
+bash start.sh
 ```
 
 the bas script should work
