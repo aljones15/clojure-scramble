@@ -20,7 +20,7 @@ chmod +x start.sh
 
 ## Stack
 ### API
--liberator
+- liberator
 ### Front End
 - fulcro
 
