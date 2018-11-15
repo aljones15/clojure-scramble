@@ -29,7 +29,7 @@
 (def handler
   (-> app
       (wrap-cors 
-        :access-control-allow-origin [#"https?://localhost:[0-9]+"]
+        :access-control-allow-origin [#".*"]
         :access-control-allow-methods [:get :post]
         :access-control-allow-headers ["Accept" "Content-Type"]
       )
