@@ -1,6 +1,11 @@
 # FLUXIAN PROGRAMMING TEST
 construct a basic scramble function
 
+## Install
+```
+bash install.sh
+```
+
 ## Instructions
 - the api needs to be on port 4139
 - the front end can be on any port
@@ -26,4 +31,9 @@ chmod +x start.sh
 
 I did not use Fulcro's built in server just went with liberator
 
+### Tests
 tests are in server (did not test ui)
+```
+cd server
+lein test
+```
